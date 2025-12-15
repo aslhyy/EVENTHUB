@@ -1,0 +1,6 @@
+jupyter
+notebook
+ipykernel
+pywinpty
+windows-curses
+django-debug-toolbar
