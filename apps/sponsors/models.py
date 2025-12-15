@@ -2,21 +2,14 @@ from django.db import models
 from django.utils import timezone
 from apps.events.models import Event
 
-
-
-
 class Sponsor(models.Model):
     name = models.CharField(max_length=255)
     logo = models.ImageField(upload_to="sponsors/", blank=True, null=True)
     website = models.URLField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
-
     def __str__(self):
         return self.name
-
-
-
 
 class EventSponsor(models.Model):
     LEVEL_CHOICES = [
@@ -24,8 +17,7 @@ class EventSponsor(models.Model):
         ('silver', 'Silver'),
         ('bronze', 'Bronze'),
     ]
-
-
+    
     event = models.ForeignKey(
         Event,
         on_delete=models.CASCADE,
