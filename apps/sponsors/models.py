@@ -17,12 +17,13 @@ class EventSponsor(models.Model):
         ('silver', 'Silver'),
         ('bronze', 'Bronze'),
     ]
-    
+
     event = models.ForeignKey(
         Event,
         on_delete=models.CASCADE,
         related_name="event_sponsors"
     )
+    
     sponsor = models.ForeignKey(
         Sponsor,
         on_delete=models.CASCADE,

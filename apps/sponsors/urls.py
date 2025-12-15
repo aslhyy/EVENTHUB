@@ -7,3 +7,5 @@ router.register(r"", SponsorViewSet, basename="sponsor")
 router.register(r"event-sponsors", EventSponsorViewSet, basename="event-sponsor")
 
 urlpatterns = router.urls
+
+

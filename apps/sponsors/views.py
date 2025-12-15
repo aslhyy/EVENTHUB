@@ -22,11 +22,6 @@ class SponsorViewSet(ModelViewSet):
     def get_queryset(self):
         return Sponsor.objects.all()
 
-
-
-
-
-
 # =========================
 # SPONSOR POR EVENTO
 # =========================

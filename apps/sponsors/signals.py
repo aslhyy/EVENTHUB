@@ -6,3 +6,6 @@ from .models import Sponsor
 def sponsor_created(sender, instance, created, **kwargs):
     if created:
         pass
+
+
+# este archivo se utiliza para definir señales relacionadas con el modelo Sponsor
