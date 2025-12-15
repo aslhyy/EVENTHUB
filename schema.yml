@@ -1,0 +1,2199 @@
+openapi: 3.0.3
+info:
+  title: EventHub API
+  version: 1.0.0
+  description: EventHub backend - API para gestión de eventos
+paths:
+  /:
+    get:
+      operationId: root_retrieve
+      description: Punto de entrada de la API
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /api/:
+    get:
+      operationId: root_list
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Sponsor'
+          description: ''
+    post:
+      operationId: root_create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SponsorRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SponsorRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/SponsorRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Sponsor'
+          description: ''
+  /api/{id}:
+    get:
+      operationId: root_retrieve_2
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this sponsor.
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Sponsor'
+          description: ''
+    put:
+      operationId: root_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this sponsor.
+        required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SponsorRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SponsorRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/SponsorRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Sponsor'
+          description: ''
+    patch:
+      operationId: root_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this sponsor.
+        required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedSponsorRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedSponsorRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedSponsorRequest'
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Sponsor'
+          description: ''
+    delete:
+      operationId: root_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this sponsor.
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/attendees/:
+    get:
+      operationId: attendees_list
+      tags:
+      - attendees
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Attendee'
+          description: ''
+    post:
+      operationId: attendees_create
+      tags:
+      - attendees
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AttendeeRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/AttendeeRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/AttendeeRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Attendee'
+          description: ''
+  /api/attendees/{id}/:
+    get:
+      operationId: attendees_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this attendee.
+        required: true
+      tags:
+      - attendees
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Attendee'
+          description: ''
+    put:
+      operationId: attendees_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this attendee.
+        required: true
+      tags:
+      - attendees
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AttendeeRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/AttendeeRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/AttendeeRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Attendee'
+          description: ''
+    patch:
+      operationId: attendees_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this attendee.
+        required: true
+      tags:
+      - attendees
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedAttendeeRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedAttendeeRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedAttendeeRequest'
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Attendee'
+          description: ''
+    delete:
+      operationId: attendees_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this attendee.
+        required: true
+      tags:
+      - attendees
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/attendees/{id}/check_in/:
+    post:
+      operationId: attendees_check_in_create
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this attendee.
+        required: true
+      tags:
+      - attendees
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/auth/login:
+    post:
+      operationId: auth_login_create
+      description: |-
+        Takes a set of user credentials and returns an access and refresh JSON web
+        token pair to prove the authentication of those credentials.
+      tags:
+      - auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenObtainPairRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TokenObtainPairRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TokenObtainPairRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenObtainPair'
+          description: ''
+  /api/auth/refresh:
+    post:
+      operationId: auth_refresh_create
+      description: |-
+        Takes a refresh type JSON web token and returns an access type JSON web
+        token if the refresh token is valid.
+      tags:
+      - auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenRefreshRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TokenRefreshRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TokenRefreshRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenRefresh'
+          description: ''
+  /api/auth/register:
+    post:
+      operationId: auth_register_create
+      description: Registro público de usuarios
+      tags:
+      - auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/RegisterRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/RegisterRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Register'
+          description: ''
+  /api/categories/:
+    get:
+      operationId: categories_list
+      tags:
+      - categories
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Category'
+          description: ''
+    post:
+      operationId: categories_create
+      tags:
+      - categories
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CategoryRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CategoryRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CategoryRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Category'
+          description: ''
+  /api/categories/{id}/:
+    get:
+      operationId: categories_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Categoría.
+        required: true
+      tags:
+      - categories
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Category'
+          description: ''
+    put:
+      operationId: categories_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Categoría.
+        required: true
+      tags:
+      - categories
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CategoryRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CategoryRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CategoryRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Category'
+          description: ''
+    patch:
+      operationId: categories_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Categoría.
+        required: true
+      tags:
+      - categories
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedCategoryRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedCategoryRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedCategoryRequest'
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Category'
+          description: ''
+    delete:
+      operationId: categories_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Categoría.
+        required: true
+      tags:
+      - categories
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - {}
+      responses:
+        '204':
+          description: No response body
+  /api/dashboard:
+    get:
+      operationId: dashboard_retrieve
+      description: Dashboard consolidado de métricas del sistema
+      tags:
+      - dashboard
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/event-sponsors:
+    get:
+      operationId: event_sponsors_list
+      tags:
+      - event-sponsors
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EventSponsor'
+          description: ''
+    post:
+      operationId: event_sponsors_create
+      tags:
+      - event-sponsors
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EventSponsorRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/EventSponsorRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/EventSponsorRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventSponsor'
+          description: ''
+  /api/event-sponsors/{id}:
+    get:
+      operationId: event_sponsors_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this event sponsor.
+        required: true
+      tags:
+      - event-sponsors
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventSponsor'
+          description: ''
+    put:
+      operationId: event_sponsors_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this event sponsor.
+        required: true
+      tags:
+      - event-sponsors
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EventSponsorRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/EventSponsorRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/EventSponsorRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventSponsor'
+          description: ''
+    patch:
+      operationId: event_sponsors_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this event sponsor.
+        required: true
+      tags:
+      - event-sponsors
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedEventSponsorRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedEventSponsorRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedEventSponsorRequest'
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventSponsor'
+          description: ''
+    delete:
+      operationId: event_sponsors_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this event sponsor.
+        required: true
+      tags:
+      - event-sponsors
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/events/:
+    get:
+      operationId: events_list
+      tags:
+      - events
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Event'
+          description: ''
+    post:
+      operationId: events_create
+      tags:
+      - events
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EventRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/EventRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/EventRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+          description: ''
+  /api/events/{id}/:
+    get:
+      operationId: events_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Evento.
+        required: true
+      tags:
+      - events
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+          description: ''
+    put:
+      operationId: events_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Evento.
+        required: true
+      tags:
+      - events
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EventRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/EventRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/EventRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+          description: ''
+    patch:
+      operationId: events_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Evento.
+        required: true
+      tags:
+      - events
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedEventRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedEventRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedEventRequest'
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+          description: ''
+    delete:
+      operationId: events_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Evento.
+        required: true
+      tags:
+      - events
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/health:
+    get:
+      operationId: health_retrieve
+      tags:
+      - health
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  database:
+                    type: string
+          description: ''
+  /api/ticket-types/:
+    get:
+      operationId: ticket_types_list
+      tags:
+      - ticket-types
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TicketType'
+          description: ''
+    post:
+      operationId: ticket_types_create
+      tags:
+      - ticket-types
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TicketTypeRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TicketTypeRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TicketTypeRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TicketType'
+          description: ''
+  /api/ticket-types/{id}/:
+    get:
+      operationId: ticket_types_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Tipo de Ticket.
+        required: true
+      tags:
+      - ticket-types
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TicketType'
+          description: ''
+    put:
+      operationId: ticket_types_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Tipo de Ticket.
+        required: true
+      tags:
+      - ticket-types
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TicketTypeRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TicketTypeRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TicketTypeRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TicketType'
+          description: ''
+    patch:
+      operationId: ticket_types_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Tipo de Ticket.
+        required: true
+      tags:
+      - ticket-types
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedTicketTypeRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedTicketTypeRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedTicketTypeRequest'
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TicketType'
+          description: ''
+    delete:
+      operationId: ticket_types_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Tipo de Ticket.
+        required: true
+      tags:
+      - ticket-types
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - {}
+      responses:
+        '204':
+          description: No response body
+  /api/tickets/:
+    get:
+      operationId: tickets_list
+      tags:
+      - tickets
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Ticket'
+          description: ''
+    post:
+      operationId: tickets_create
+      tags:
+      - tickets
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TicketRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TicketRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TicketRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ticket'
+          description: ''
+  /api/tickets/{id}/:
+    get:
+      operationId: tickets_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Ticket.
+        required: true
+      tags:
+      - tickets
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ticket'
+          description: ''
+    put:
+      operationId: tickets_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Ticket.
+        required: true
+      tags:
+      - tickets
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TicketRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TicketRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TicketRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ticket'
+          description: ''
+    patch:
+      operationId: tickets_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Ticket.
+        required: true
+      tags:
+      - tickets
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedTicketRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedTicketRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedTicketRequest'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ticket'
+          description: ''
+    delete:
+      operationId: tickets_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Ticket.
+        required: true
+      tags:
+      - tickets
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/tickets/{id}/cancel/:
+    post:
+      operationId: tickets_cancel_create
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: ID del ticket
+        required: true
+      tags:
+      - tickets
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/venues/:
+    get:
+      operationId: venues_list
+      tags:
+      - venues
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Venue'
+          description: ''
+    post:
+      operationId: venues_create
+      tags:
+      - venues
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VenueRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/VenueRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/VenueRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Venue'
+          description: ''
+  /api/venues/{id}/:
+    get:
+      operationId: venues_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Lugar.
+        required: true
+      tags:
+      - venues
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Venue'
+          description: ''
+    put:
+      operationId: venues_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Lugar.
+        required: true
+      tags:
+      - venues
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VenueRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/VenueRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/VenueRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Venue'
+          description: ''
+    patch:
+      operationId: venues_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Lugar.
+        required: true
+      tags:
+      - venues
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedVenueRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedVenueRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedVenueRequest'
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Venue'
+          description: ''
+    delete:
+      operationId: venues_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Lugar.
+        required: true
+      tags:
+      - venues
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '204':
+          description: No response body
+  /health:
+    get:
+      operationId: health_retrieve_2
+      tags:
+      - health
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  database:
+                    type: string
+          description: ''
+components:
+  schemas:
+    Attendee:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        event:
+          type: integer
+        user:
+          type: integer
+          readOnly: true
+        ticket:
+          type: integer
+        status:
+          allOf:
+          - $ref: '#/components/schemas/AttendeeStatusEnum'
+          readOnly: true
+        check_in_time:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - check_in_time
+      - created_at
+      - event
+      - id
+      - status
+      - ticket
+      - user
+    AttendeeRequest:
+      type: object
+      properties:
+        event:
+          type: integer
+        ticket:
+          type: integer
+      required:
+      - event
+      - ticket
+    AttendeeStatusEnum:
+      enum:
+      - registered
+      - checked_in
+      - no_show
+      type: string
+      description: |-
+        * `registered` - Registrado
+        * `checked_in` - Asistió
+        * `no_show` - No asistió
+    Category:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          title: Nombre
+          maxLength: 100
+        description:
+          type: string
+          title: Descripción
+        icon:
+          type: string
+          title: Icono
+          maxLength: 50
+        events_count:
+          type: integer
+          readOnly: true
+      required:
+      - events_count
+      - id
+      - name
+    CategoryRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          title: Nombre
+          maxLength: 100
+        description:
+          type: string
+          title: Descripción
+        icon:
+          type: string
+          title: Icono
+          maxLength: 50
+      required:
+      - name
+    Event:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        category:
+          type: integer
+        venue:
+          type: integer
+        title:
+          type: string
+          title: Título
+          maxLength: 200
+        slug:
+          type: string
+          readOnly: true
+          pattern: ^[-a-zA-Z0-9_]+$
+        description:
+          type: string
+          title: Descripción
+        start_date:
+          type: string
+          format: date-time
+          title: Fecha de Inicio
+        end_date:
+          type: string
+          format: date-time
+          title: Fecha de Fin
+        status:
+          allOf:
+          - $ref: '#/components/schemas/EventStatusEnum'
+          title: Publicado
+        capacity:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 1
+          format: int64
+          title: Capacidad
+        is_free:
+          type: boolean
+          title: ¿Es Gratuito?
+        is_online:
+          type: boolean
+          title: ¿Es Virtual?
+        online_url:
+          type: string
+          format: uri
+          title: URL del Evento Virtual
+          maxLength: 200
+        organizer:
+          type: integer
+          readOnly: true
+      required:
+      - capacity
+      - category
+      - description
+      - end_date
+      - id
+      - organizer
+      - slug
+      - start_date
+      - title
+      - venue
+    EventRequest:
+      type: object
+      properties:
+        category:
+          type: integer
+        venue:
+          type: integer
+        title:
+          type: string
+          minLength: 1
+          title: Título
+          maxLength: 200
+        description:
+          type: string
+          minLength: 1
+          title: Descripción
+        start_date:
+          type: string
+          format: date-time
+          title: Fecha de Inicio
+        end_date:
+          type: string
+          format: date-time
+          title: Fecha de Fin
+        status:
+          allOf:
+          - $ref: '#/components/schemas/EventStatusEnum'
+          title: Publicado
+        capacity:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 1
+          format: int64
+          title: Capacidad
+        is_free:
+          type: boolean
+          title: ¿Es Gratuito?
+        is_online:
+          type: boolean
+          title: ¿Es Virtual?
+        online_url:
+          type: string
+          format: uri
+          title: URL del Evento Virtual
+          maxLength: 200
+      required:
+      - capacity
+      - category
+      - description
+      - end_date
+      - start_date
+      - title
+      - venue
+    EventSponsor:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        sponsor:
+          type: integer
+        event:
+          type: integer
+        level:
+          $ref: '#/components/schemas/LevelEnum'
+        contribution_amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+        start_date:
+          type: string
+          format: date-time
+        end_date:
+          type: string
+          format: date-time
+        is_active:
+          type: boolean
+          readOnly: true
+        duration_days:
+          type: integer
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - contribution_amount
+      - created_at
+      - duration_days
+      - end_date
+      - event
+      - id
+      - is_active
+      - level
+      - sponsor
+      - start_date
+    EventSponsorRequest:
+      type: object
+      properties:
+        sponsor:
+          type: integer
+        event:
+          type: integer
+        level:
+          $ref: '#/components/schemas/LevelEnum'
+        contribution_amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+        start_date:
+          type: string
+          format: date-time
+        end_date:
+          type: string
+          format: date-time
+      required:
+      - contribution_amount
+      - end_date
+      - event
+      - level
+      - sponsor
+      - start_date
+    EventStatusEnum:
+      enum:
+      - published
+      - ongoing
+      - finished
+      - cancelled
+      type: string
+      description: |-
+        * `published` - Publicado
+        * `ongoing` - En Curso
+        * `finished` - Finalizado
+        * `cancelled` - Cancelado
+    LevelEnum:
+      enum:
+      - gold
+      - silver
+      - bronze
+      type: string
+      description: |-
+        * `gold` - Gold
+        * `silver` - Silver
+        * `bronze` - Bronze
+    PatchedAttendeeRequest:
+      type: object
+      properties:
+        event:
+          type: integer
+        ticket:
+          type: integer
+    PatchedCategoryRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          title: Nombre
+          maxLength: 100
+        description:
+          type: string
+          title: Descripción
+        icon:
+          type: string
+          title: Icono
+          maxLength: 50
+    PatchedEventRequest:
+      type: object
+      properties:
+        category:
+          type: integer
+        venue:
+          type: integer
+        title:
+          type: string
+          minLength: 1
+          title: Título
+          maxLength: 200
+        description:
+          type: string
+          minLength: 1
+          title: Descripción
+        start_date:
+          type: string
+          format: date-time
+          title: Fecha de Inicio
+        end_date:
+          type: string
+          format: date-time
+          title: Fecha de Fin
+        status:
+          allOf:
+          - $ref: '#/components/schemas/EventStatusEnum'
+          title: Publicado
+        capacity:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 1
+          format: int64
+          title: Capacidad
+        is_free:
+          type: boolean
+          title: ¿Es Gratuito?
+        is_online:
+          type: boolean
+          title: ¿Es Virtual?
+        online_url:
+          type: string
+          format: uri
+          title: URL del Evento Virtual
+          maxLength: 200
+    PatchedEventSponsorRequest:
+      type: object
+      properties:
+        sponsor:
+          type: integer
+        event:
+          type: integer
+        level:
+          $ref: '#/components/schemas/LevelEnum'
+        contribution_amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+        start_date:
+          type: string
+          format: date-time
+        end_date:
+          type: string
+          format: date-time
+    PatchedSponsorRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 255
+        logo:
+          type: string
+          format: binary
+          nullable: true
+        website:
+          type: string
+          format: uri
+          maxLength: 200
+    PatchedTicketRequest:
+      type: object
+      properties:
+        ticket_type:
+          type: integer
+          title: Tipo de Ticket
+    PatchedTicketTypeRequest:
+      type: object
+      properties:
+        event:
+          type: integer
+          title: Evento
+        name:
+          type: string
+          minLength: 1
+          title: Nombre
+          maxLength: 100
+        price:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+          title: Precio
+        quantity:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+          title: Cantidad Disponible
+        sale_start:
+          type: string
+          format: date-time
+          title: Inicio de Venta
+        sale_end:
+          type: string
+          format: date-time
+          title: Fin de Venta
+    PatchedVenueRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          title: Nombre
+          maxLength: 200
+        address:
+          type: string
+          minLength: 1
+          title: Dirección
+          maxLength: 300
+        city:
+          type: string
+          minLength: 1
+          title: Ciudad
+          maxLength: 100
+        state:
+          type: string
+          minLength: 1
+          title: Departamento/Estado
+          maxLength: 100
+        capacity:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 1
+          format: int64
+          title: Capacidad
+    Register:
+      type: object
+      properties:
+        username:
+          type: string
+          description: Required. 150 characters or fewer. Letters, digits and @/./+/-/_
+            only.
+          pattern: ^[\w.@+-]+$
+          maxLength: 150
+        email:
+          type: string
+          format: email
+          title: Email address
+          maxLength: 254
+        role:
+          allOf:
+          - $ref: '#/components/schemas/RoleEnum'
+          default: attendee
+      required:
+      - username
+    RegisterRequest:
+      type: object
+      properties:
+        username:
+          type: string
+          minLength: 1
+          description: Required. 150 characters or fewer. Letters, digits and @/./+/-/_
+            only.
+          pattern: ^[\w.@+-]+$
+          maxLength: 150
+        email:
+          type: string
+          format: email
+          title: Email address
+          maxLength: 254
+        password:
+          type: string
+          writeOnly: true
+          minLength: 1
+        role:
+          allOf:
+          - $ref: '#/components/schemas/RoleEnum'
+          default: attendee
+      required:
+      - password
+      - username
+    RoleEnum:
+      enum:
+      - attendee
+      - organizer
+      type: string
+      description: |-
+        * `attendee` - Attendee
+        * `organizer` - Organizer
+    Sponsor:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        logo:
+          type: string
+          format: uri
+          nullable: true
+        website:
+          type: string
+          format: uri
+          maxLength: 200
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - created_at
+      - id
+      - name
+    SponsorRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 255
+        logo:
+          type: string
+          format: binary
+          nullable: true
+        website:
+          type: string
+          format: uri
+          maxLength: 200
+      required:
+      - name
+    Ticket:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        ticket_type:
+          type: integer
+          title: Tipo de Ticket
+        user:
+          type: integer
+          readOnly: true
+        purchase_date:
+          type: string
+          format: date-time
+          readOnly: true
+        price_paid:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+          readOnly: true
+          title: Precio Pagado
+        status:
+          allOf:
+          - $ref: '#/components/schemas/TicketStatusEnum'
+          readOnly: true
+        is_valid:
+          type: boolean
+          readOnly: true
+      required:
+      - id
+      - is_valid
+      - price_paid
+      - purchase_date
+      - status
+      - ticket_type
+      - user
+    TicketRequest:
+      type: object
+      properties:
+        ticket_type:
+          type: integer
+          title: Tipo de Ticket
+      required:
+      - ticket_type
+    TicketStatusEnum:
+      enum:
+      - valid
+      - used
+      - cancelled
+      type: string
+      description: |-
+        * `valid` - Válido
+        * `used` - Usado
+        * `cancelled` - Cancelado
+    TicketType:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        event:
+          type: integer
+          title: Evento
+        name:
+          type: string
+          title: Nombre
+          maxLength: 100
+        price:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+          title: Precio
+        quantity:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+          title: Cantidad Disponible
+        sold_count:
+          type: integer
+          readOnly: true
+          title: Vendidos
+        available_quantity:
+          type: integer
+          readOnly: true
+        sale_start:
+          type: string
+          format: date-time
+          title: Inicio de Venta
+        sale_end:
+          type: string
+          format: date-time
+          title: Fin de Venta
+        is_available:
+          type: boolean
+          readOnly: true
+      required:
+      - available_quantity
+      - event
+      - id
+      - is_available
+      - name
+      - price
+      - quantity
+      - sale_end
+      - sale_start
+      - sold_count
+    TicketTypeRequest:
+      type: object
+      properties:
+        event:
+          type: integer
+          title: Evento
+        name:
+          type: string
+          minLength: 1
+          title: Nombre
+          maxLength: 100
+        price:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+          title: Precio
+        quantity:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+          title: Cantidad Disponible
+        sale_start:
+          type: string
+          format: date-time
+          title: Inicio de Venta
+        sale_end:
+          type: string
+          format: date-time
+          title: Fin de Venta
+      required:
+      - event
+      - name
+      - price
+      - quantity
+      - sale_end
+      - sale_start
+    TokenObtainPair:
+      type: object
+      properties:
+        access:
+          type: string
+          readOnly: true
+        refresh:
+          type: string
+          readOnly: true
+      required:
+      - access
+      - refresh
+    TokenObtainPairRequest:
+      type: object
+      properties:
+        username:
+          type: string
+          writeOnly: true
+          minLength: 1
+        password:
+          type: string
+          writeOnly: true
+          minLength: 1
+      required:
+      - password
+      - username
+    TokenRefresh:
+      type: object
+      properties:
+        access:
+          type: string
+          readOnly: true
+      required:
+      - access
+    TokenRefreshRequest:
+      type: object
+      properties:
+        refresh:
+          type: string
+          writeOnly: true
+          minLength: 1
+      required:
+      - refresh
+    Venue:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          title: Nombre
+          maxLength: 200
+        address:
+          type: string
+          title: Dirección
+          maxLength: 300
+        city:
+          type: string
+          title: Ciudad
+          maxLength: 100
+        state:
+          type: string
+          title: Departamento/Estado
+          maxLength: 100
+        capacity:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 1
+          format: int64
+          title: Capacidad
+        full_address:
+          type: string
+          readOnly: true
+      required:
+      - address
+      - capacity
+      - city
+      - full_address
+      - id
+      - name
+      - state
+    VenueRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          title: Nombre
+          maxLength: 200
+        address:
+          type: string
+          minLength: 1
+          title: Dirección
+          maxLength: 300
+        city:
+          type: string
+          minLength: 1
+          title: Ciudad
+          maxLength: 100
+        state:
+          type: string
+          minLength: 1
+          title: Departamento/Estado
+          maxLength: 100
+        capacity:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 1
+          format: int64
+          title: Capacidad
+      required:
+      - address
+      - capacity
+      - city
+      - name
+      - state
+  securitySchemes:
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: sessionid
+    jwtAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
